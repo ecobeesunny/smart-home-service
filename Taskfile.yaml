@@ -1,0 +1,19 @@
+version: 3
+
+tasks:
+  local_build:
+    desc: "builds local images"
+    cmds:
+      - GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -a -o build/smart-home cmd/smart-home/main.go
+
+  docker_run:
+    desc: "runs the service in docker"
+    cmds:
+      - task local_build
+      - docker-compose build --no-cache smart-home
+      - docker-compose up
+
+  docker_stop:
+    desc: "stops running containers"
+    cmds:
+      - docker-compose down

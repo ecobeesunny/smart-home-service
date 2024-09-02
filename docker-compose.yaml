@@ -1,0 +1,15 @@
+version: "3"
+services:
+  smart-home:
+    build:
+      context: .
+      dockerfile: ./Dockerfile.local
+    image: smart-home:latest
+    command: ["./smart-home"]
+    environment:
+      - COLOR_LOGS_ENABLED=true
+      - ENV=local
+      - GOOGLE_PROJECT_ID=report-state-test
+    #For testing localhost locally 
+    ports:
+      - "8080:8080"
